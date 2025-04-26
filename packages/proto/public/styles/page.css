@@ -4,12 +4,36 @@ body {
     font-family: 'Roboto', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
     background-color: var(--color-background-page);
     color: var(--color-text);
-    padding: 20px;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
 }
 
 header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background-color: var(--color-text-inverted);
     color: var(--color-text-inverted);
-    background-color: var(--color-background-header);
+    padding: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+nav ul {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 h1, h2, h3 {
@@ -32,7 +56,7 @@ dl {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  max-width: 400px;
+    max-width: 400px;
 }
 
 dt {
@@ -52,5 +76,5 @@ svg.icon {
     height: 2em;
     width: 2em;
     vertical-align: top;
-    fill: currentColor;
+    color: var(--color-accent);
 }
