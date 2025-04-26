@@ -1,7 +1,7 @@
 @import url('tokens.css'); 
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Roboto', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
     background-color: var(--color-background-page);
     color: var(--color-text);
     padding: 20px;
@@ -10,6 +10,12 @@ body {
 header {
     color: var(--color-text-inverted);
     background-color: var(--color-background-header);
+}
+
+h1, h2, h3 {
+    font-family: 'Poppins', 'Arial Black', 'Impact', sans-serif;
+    font-weight: 700;
+    font-style: normal;
 }
 
 h2 a {
@@ -39,4 +45,12 @@ dd {
     margin-left: 20px;
     margin-bottom: 10px;
     color: var(--color-text);
+}
+
+svg.icon {
+    display: inline;
+    height: 2em;
+    width: 2em;
+    vertical-align: top;
+    fill: currentColor;
 }
