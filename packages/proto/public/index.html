@@ -12,6 +12,15 @@
     <nav>
       <ul>
         <li>
+          <label id="darkmode-toggle">
+            <input type="checkbox" autocomplete="off" hidden />
+            <svg class="icon" id="theme-icon">
+              <use xlink:href="/icons/organization.svg#icon-darkmode"></use>
+            </svg>
+          </label>          
+        </li>
+        
+        <li>
           <a href="unity.html">
             <svg class="icon">
               <use xlink:href="/icons/organization.svg#icon-unity"></use>
@@ -49,15 +58,12 @@
       </ul>
     </nav>
   </header>
-  <!--
-  <ul>
-    <li><a href="player.html">Player</a></li>
-    <li><a href="game.html">Game</a></li>
-    <li><a href="court.html">Court</a></li>
-    <li><a href="tournament.html">Tournament</a></li>
-    <li><a href="drill.html">Drill</a></li>
-    <li><a href="gear.html">Gear</a></li>
-  </ul>
-  -->
+
+  <main>
+    <p>Welcome to my site.</p>
+  </main>
+
+  <script type="module" src="/scripts/darkmode.js"></script>
+  <script type="module" src="/scripts/setheaderheight.js"></script>
 </body>
 </html>

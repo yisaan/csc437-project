@@ -1,4 +1,6 @@
 @import url('tokens.css'); 
+@import url('icon.css'); 
+@import url('random.css'); 
 
 body {
     font-family: 'Roboto', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
@@ -11,10 +13,6 @@ body {
     min-height: 100vh;
 }
 
-main {
-    flex: 1;
-}
-
 header {
     position: fixed;
     top: 0;
@@ -25,6 +23,13 @@ header {
     color: var(--color-text-inverted);
     padding: 16px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-family: 'Poppins', 'Arial Black', 'Impact', sans-serif;
+    font-weight: 700;
+}
+
+main {
+    flex: 1;
+    padding-top: var(--header-height);
 }
 
 nav ul {
@@ -34,47 +39,4 @@ nav ul {
     list-style: none;
     margin: 0;
     padding: 0;
-}
-
-h1, h2, h3 {
-    font-family: 'Poppins', 'Arial Black', 'Impact', sans-serif;
-    font-weight: 700;
-    font-style: normal;
-}
-
-h2 a {
-    text-decoration: none;
-    color: var(--color-link);
-}
-
-h2 a:hover {
-    text-decoration: underline;
-}
-
-dl {
-    background-color: var(--color-text-inverted);
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 400px;
-}
-
-dt {
-    font-weight: bold;
-    margin-top: 15px;
-    color: var(--color-text);
-}
-
-dd {
-    margin-left: 20px;
-    margin-bottom: 10px;
-    color: var(--color-text);
-}
-
-svg.icon {
-    display: inline;
-    height: 2em;
-    width: 2em;
-    vertical-align: top;
-    color: var(--color-accent);
 }
