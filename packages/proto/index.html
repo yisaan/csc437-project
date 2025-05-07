@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="/styles/page.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  </head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li>
+          <label id="darkmode-toggle">
+            <input type="checkbox" autocomplete="off" hidden />
+            <svg class="icon" id="theme-icon">
+              <use xlink:href="/icons/organization.svg#icon-darkmode"></use>
+            </svg>
+          </label>          
+        </li>
+        <li>
+          <a href="unity.html">
+            <svg class="icon">
+              <use xlink:href="/icons/organization.svg#icon-unity"></use>
+            </svg>
+          </a>
+        </li>
+        <li>
+          <a href="calendar.html">
+            <svg class="icon">
+              <use xlink:href="/icons/organization.svg#icon-calender"></use>
+            </svg>
+          </a>
+        </li>
+        <li>
+          <a href="index.html">
+            <svg class="icon">
+              <use xlink:href="/icons/organization.svg#icon-group"></use>
+            </svg>
+          </a>
+        </li>
+        <li>
+          <a href="chat.html">
+            <svg class="icon">
+              <use xlink:href="/icons/organization.svg#icon-chat"></use>
+            </svg>
+          </a>
+        </li>
+        <li>
+          <a href="profile.html">
+            <svg class="icon">
+              <use xlink:href="/icons/organization.svg#icon-account"></use>
+            </svg>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <table>
+      
+      <tbody>
+        <player-ranking rank="1" year="3rd" points="1500">
+          Gabriel
+        </player-ranking>
+  
+        <player-ranking rank="2" year="2nd" points="1400">
+          Oskar
+        </player-ranking>
+
+        <player-ranking rank="3" year="3rd" points="1300">
+          Alon
+        </player-ranking>
+
+        <player-ranking rank="4" year="4th" points="1200">
+          Alex
+        </player-ranking>
+      </tbody>
+    </table>
+    <p>Welcome to my site</p>
+  </main>
+  
+
+  <script type="module" src="/scripts/darkmode.js"></script>
+  <script type="module" src="/scripts/setheaderheight.js"></script>
+  
+  <script type="module">
+    import { define } from "@calpoly/mustang";
+    import { PlayerRankingElement } from "/src/rankings.js";
+  
+    define({
+      "player-ranking": PlayerRankingElement
+    });
+  </script>
+  
+</body>
+</html>

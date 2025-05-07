@@ -14,7 +14,7 @@ body {
 }
 
 header {
-    position: fixed;
+    position: sticky;
     top: 0;
     left: 0;
     right: 0;
@@ -30,8 +30,6 @@ header {
 main {
     flex: 1;
     padding-top: var(--header-height);
-    max-width: 800px;  
-    margin: 0 auto;  
 }
 
 nav ul {
