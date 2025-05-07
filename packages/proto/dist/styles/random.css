@@ -7,6 +7,10 @@ h2 a:hover {
     text-decoration: underline;
 }
 
+h1 {
+    text-align: center;
+}
+
 dl {
     background-color: var(--color-text-inverted);
     padding: 20px;
