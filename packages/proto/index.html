@@ -59,27 +59,7 @@
   </header>
 
   <main>
-    <table>
-      
-      <tbody>
-        <player-ranking rank="1" year="3rd" points="1500">
-          Gabriel
-        </player-ranking>
-  
-        <player-ranking rank="2" year="2nd" points="1400">
-          Oskar
-        </player-ranking>
-
-        <player-ranking rank="3" year="3rd" points="1300">
-          Alon
-        </player-ranking>
-
-        <player-ranking rank="4" year="4th" points="1200">
-          Alex
-        </player-ranking>
-      </tbody>
-    </table>
-    <p>Welcome to my site</p>
+    <player-table src="/rankings.json"></player-table>
   </main>
   
 
@@ -88,12 +68,15 @@
   
   <script type="module">
     import { define } from "@calpoly/mustang";
-    import { PlayerRankingElement } from "/src/rankings.js";
+    import { PlayerRowElement } from "/src/playerrow.js";
   
     define({
-      "player-ranking": PlayerRankingElement
+      "player-ranking": PlayerRowElement
     });
   </script>
   
+  <script type="module" src="/src/playertable.ts"></script>
+
+
 </body>
 </html>
