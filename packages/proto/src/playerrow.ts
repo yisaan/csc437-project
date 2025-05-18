@@ -19,41 +19,44 @@ export class PlayerRowElement extends LitElement {
     static styles = [
         reset.styles,
         css`
-            :host {
-                display: table-row;
-                transition: background-color 0.15s ease-in-out;
-            }
-
-            td.rank {
-                width: 4ch;
-                text-align: center;
-                font-weight: bold;
-                color: #1e88e5;
-                font-size: 15px;
-            }
-
-            td.year {
-                text-align: center;
-                color: #555;
-            }
-            td.points {
-                text-align: center;
-                font-weight: 600;
-            }
-
-            td {
-                padding: 10px 20px;
-                border-bottom: 1px solid #ddd;
-            }
-
-
-            :host(:hover) {
-                background-color: #e2e8f0;
-            }
-
-            td:nth-child(2) {
-                font-weight: 600;
-            }
+          :host {
+            display: table-row;
+            transition: background-color 0.15s ease-in-out;
+          }
+      
+          td {
+            padding: 14px 20px;
+            font-size: 15px;
+            border-bottom: 1px solid #eee;
+            vertical-align: middle;
+          }
+      
+          td.rank {
+            font-weight: bold;
+            color: #007bff; /* strong blue */
+            font-size: 16px;
+            text-align: left;
+          }
+      
+          td:nth-child(2) {
+            font-weight: 600;
+            text-align: left;
+          }
+      
+          td.year {
+            color: #555;
+            text-align: right;
+          }
+      
+          td.points {
+            font-weight: 700;
+            text-align: right;
+          }
+      
+          :host(:hover) {
+            background-color: #f1f5f9;
+          }
         `
     ];
+      
 }

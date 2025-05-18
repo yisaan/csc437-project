@@ -17,34 +17,49 @@ export class PlayerTableElement extends LitElement {
 
   static styles = [
     reset.styles,
-    css`
+    css` 
       table {
         width: 100%;
         border-collapse: collapse;
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        font-family: 'Poppins', sans-serif;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
       }
-
+  
+      th {
+        padding: 14px 20px;
+        font-size: 14px;
+        color: #666;
+        font-weight: 600;
+        text-align: left;
+        background-color:rgb(233, 233, 233);
+        border-bottom: 2px solid #eee;
+        color: rgb(100, 100, 100);
+      }
+  
+      th:nth-child(1), th:nth-child(2) {
+        text-align: left;
+      }
+  
+      th:nth-child(4), th:nth-child(3) {
+        text-align: right;
+      }
+  
       caption {
         caption-side: top;
-        font-size: 1.25rem;
-        margin-bottom: 0.5rem;
-        font-weight: 600;
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
       }
-
-      th {
-        padding: 10px 20px;
-        text-align: left;
-        border-bottom: 2px solid #ccc;
-      }
-
+  
       tbody tr:nth-child(even) {
-        background: #fafafa;
-      }
-
-      tbody tr:hover {
-        background: #e3f2fd;
+        background-color: #fcfcfc;
       }
     `
   ];
+  
 
   connectedCallback() {
     super.connectedCallback();

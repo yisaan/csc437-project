@@ -1,6 +1,7 @@
 import express, { Request, Response } from "express";
 import { connect } from "./services/mongo";
 import Players from "./services/player-svc";
+import players from "./routes/players";
 
 connect("Pickleball");
 
@@ -9,6 +10,10 @@ const port = process.env.PORT || 3000;
 const staticDir = process.env.STATIC || "public";
 
 app.use(express.static(staticDir));
+
+app.use(express.json());
+
+app.use("/api/players", players);
 
 app.get("/hello", (req: Request, res: Response) => {
     res.send("Hello, World");

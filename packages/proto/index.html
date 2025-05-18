@@ -59,8 +59,15 @@
   </header>
 
   <main>
-    <player-table src="/players/men"></player-table>
-    <player-table src="/players/women"></player-table>
+    <section class="filter-bar">
+      <button id="showMen" class="active">Men's Rankings</button>
+      <button id="showWomen">Women's Rankings</button>
+    </section>
+    
+    <section>
+      <player-table id="menTable" src="/players/men"></player-table>
+      <player-table id="womenTable" src="/players/women" style="display: none;"></player-table>
+    </section>    
   </main>
   
 
@@ -78,6 +85,27 @@
   
   <script type="module" src="/src/playertable.ts"></script>
 
-
+  <script type="module">
+    const menBtn = document.getElementById("showMen");
+    const womenBtn = document.getElementById("showWomen");
+    const menTable = document.getElementById("menTable");
+    const womenTable = document.getElementById("womenTable");
+  
+    menBtn.addEventListener("click", () => {
+      menTable.style.display = "block";
+      womenTable.style.display = "none";
+      menBtn.classList.add("active");
+      womenBtn.classList.remove("active");
+    });
+  
+    womenBtn.addEventListener("click", () => {
+      menTable.style.display = "none";
+      womenTable.style.display = "block";
+      womenBtn.classList.add("active");
+      menBtn.classList.remove("active");
+    });
+  </script>
+  
+  
 </body>
 </html>

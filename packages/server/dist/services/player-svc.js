@@ -30,7 +30,7 @@ const PlayerSchema = new import_mongoose.Schema(
     points: { type: Number, default: 0 },
     gender: { type: String, required: true, enum: ["men", "women"] }
   },
-  { collection: "players" }
+  { collection: "players", versionKey: false }
 );
 const PlayerModel = (0, import_mongoose.model)(
   "Player",
@@ -47,4 +47,19 @@ function get(name) {
 function indexByGender(gender) {
   return PlayerModel.find({ gender }).sort({ rank: 1 });
 }
-var player_svc_default = { index, get, indexByGender };
+function create(json) {
+  const p = new PlayerModel(json);
+  return p.save();
+}
+function update(name, player) {
+  return PlayerModel.findOneAndUpdate({ name }, player, { new: true }).then((updated) => {
+    if (!updated) throw `${name} not updated`;
+    else return updated;
+  });
+}
+function remove(name) {
+  return PlayerModel.findOneAndDelete({ name }).then((deleted) => {
+    if (!deleted) throw `${name} not deleted`;
+  });
+}
+var player_svc_default = { index, get, indexByGender, create, update, remove };
