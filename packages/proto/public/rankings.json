@@ -1,8 +1,0 @@
-[
-    { "name": "Gabriel", "rank": 1, "year": "3rd", "points": 1500 },
-    { "name": "Oskar",   "rank": 2, "year": "2nd", "points": 1420 },
-    { "name": "Alon",    "rank": 3, "year": "3rd", "points": 1300 },
-    { "name": "Alex",    "rank": 4, "year": "4th", "points": 1200 },
-    { "name": "Joseph",  "rank": 5, "year": "3rd", "points": 1100 },
-    { "name": "Troy",    "rank": 6, "year": "2nd", "points": 1000 }
-]
