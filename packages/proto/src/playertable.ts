@@ -1,7 +1,8 @@
 import { LitElement, html, css } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import reset from './styles/reset.css.ts';
-import './playerrow.ts';  
+import './playerrow.ts'; 
+import { Auth, Observer } from "@calpoly/mustang";
 
 interface Player {
   name:   string;
@@ -15,6 +16,26 @@ export class PlayerTableElement extends LitElement {
 
   @state() private players: Player[] = [];
 
+  _authObserver = new Observer<Auth.Model>(this, "blazing:auth");
+  _user?: Auth.User;
+
+  connectedCallback() {
+    super.connectedCallback();
+    this._authObserver.observe((auth: Auth.Model) => {
+      this._user = auth.user;
+      if (this.src) this.hydrate(this.src);
+    });
+  }
+
+  get authorization() {
+    if ( this._user?.authenticated ) 
+      return {
+        Authorization: `Bearer ${(this._user as Auth.AuthenticatedUser).token}`
+      };
+    else
+      return undefined;
+  }
+
   static styles = [
     reset.styles,
     css` 
@@ -24,13 +45,13 @@ export class PlayerTableElement extends LitElement {
         background: white;
         border-radius: 12px;
         overflow: hidden;
-        font-family: 'Poppins', sans-serif;
+        font-family: "Bebas Neue", 'Poppins', sans-serif;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
       }
   
       th {
         padding: 14px 20px;
-        font-size: 14px;
+        font-size: large;
         color: #666;
         font-weight: 600;
         text-align: left;
@@ -59,16 +80,10 @@ export class PlayerTableElement extends LitElement {
       }
     `
   ];
-  
-
-  connectedCallback() {
-    super.connectedCallback();
-    if (this.src) this.hydrate(this.src);
-  }
 
   private async hydrate(src: string) {
     try {
-      const res = await fetch(src);
+      const res = await fetch(src, { headers: this.authorization });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       this.players = await res.json();
     } catch (e) {
@@ -101,6 +116,3 @@ export class PlayerTableElement extends LitElement {
     `;
   }
 }
-
-import { define } from '@calpoly/mustang';
-define({ 'player-table': PlayerTableElement });

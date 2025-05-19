@@ -5,107 +5,112 @@
     <link rel="stylesheet" href="/styles/page.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-  </head>
-<body>
-  <header>
-    <nav>
-      <ul>
-        <li>
-          <label id="darkmode-toggle">
-            <input type="checkbox" autocomplete="off" hidden />
-            <svg class="icon" id="theme-icon">
-              <use xlink:href="/icons/organization.svg#icon-darkmode"></use>
-            </svg>
-          </label>          
-        </li>
-        <li>
-          <a href="unity.html">
-            <svg class="icon">
-              <use xlink:href="/icons/organization.svg#icon-unity"></use>
-            </svg>
-          </a>
-        </li>
-        <li>
-          <a href="calendar.html">
-            <svg class="icon">
-              <use xlink:href="/icons/organization.svg#icon-calender"></use>
-            </svg>
-          </a>
-        </li>
-        <li>
-          <a href="index.html">
-            <svg class="icon">
-              <use xlink:href="/icons/organization.svg#icon-group"></use>
-            </svg>
-          </a>
-        </li>
-        <li>
-          <a href="chat.html">
-            <svg class="icon">
-              <use xlink:href="/icons/organization.svg#icon-chat"></use>
-            </svg>
-          </a>
-        </li>
-        <li>
-          <a href="profile.html">
-            <svg class="icon">
-              <use xlink:href="/icons/organization.svg#icon-account"></use>
-            </svg>
-          </a>
-        </li>
-      </ul>
-    </nav>
-  </header>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
-  <main>
-    <section class="filter-bar">
-      <button id="showMen" class="active">Men's Rankings</button>
-      <button id="showWomen">Women's Rankings</button>
-    </section>
+    <script type="module">
+      import { define, Auth } from "@calpoly/mustang";
+      import { PlayerTableElement } from "/src/playertable.ts";
+      import { PlayerRowElement } from "/src/playerrow.ts";
     
-    <section>
-      <player-table id="menTable" src="/players/men"></player-table>
-      <player-table id="womenTable" src="/players/women" style="display: none;"></player-table>
-    </section>    
-  </main>
-  
+      define({
+        "player-table": PlayerTableElement,
+        "mu-auth": Auth.Provider,
+        "player-ranking": PlayerRowElement
+      });
+    </script>
 
-  <script type="module" src="/scripts/darkmode.js"></script>
-  <script type="module" src="/scripts/setheaderheight.js"></script>
-  
-  <script type="module">
-    import { define } from "@calpoly/mustang";
-    import { PlayerRowElement } from "/src/playerrow.js";
-  
-    define({
-      "player-ranking": PlayerRowElement
-    });
-  </script>
-  
-  <script type="module" src="/src/playertable.ts"></script>
+  </head>
+    <body>
+      <mu-auth provides="blazing:auth">
+      <header>
+        <nav>
+          <ul>
+            <li>
+              <label id="darkmode-toggle">
+                <input type="checkbox" autocomplete="off" hidden />
+                <svg class="icon" id="theme-icon">
+                  <use xlink:href="/icons/organization.svg#icon-darkmode"></use>
+                </svg>
+              </label>          
+            </li>
+            <li>
+              <a href="unity.html">
+                <svg class="icon">
+                  <use xlink:href="/icons/organization.svg#icon-unity"></use>
+                </svg>
+              </a>
+            </li>
+            <li>
+              <a href="calendar.html">
+                <svg class="icon">
+                  <use xlink:href="/icons/organization.svg#icon-calender"></use>
+                </svg>
+              </a>
+            </li>
+            <li>
+              <a href="index.html">
+                <svg class="icon">
+                  <use xlink:href="/icons/organization.svg#icon-group"></use>
+                </svg>
+              </a>
+            </li>
+            <li>
+              <a href="chat.html">
+                <svg class="icon">
+                  <use xlink:href="/icons/organization.svg#icon-chat"></use>
+                </svg>
+              </a>
+            </li>
+            <li>
+              <a href="profile.html">
+                <svg class="icon">
+                  <use xlink:href="/icons/organization.svg#icon-account"></use>
+                </svg>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </header>
 
-  <script type="module">
-    const menBtn = document.getElementById("showMen");
-    const womenBtn = document.getElementById("showWomen");
-    const menTable = document.getElementById("menTable");
-    const womenTable = document.getElementById("womenTable");
-  
-    menBtn.addEventListener("click", () => {
-      menTable.style.display = "block";
-      womenTable.style.display = "none";
-      menBtn.classList.add("active");
-      womenBtn.classList.remove("active");
-    });
-  
-    womenBtn.addEventListener("click", () => {
-      menTable.style.display = "none";
-      womenTable.style.display = "block";
-      womenBtn.classList.add("active");
-      menBtn.classList.remove("active");
-    });
-  </script>
-  
-  
-</body>
+      <p id="authStatus">Checking auth…</p>
+
+      <main>
+        <section class="filter-bar">
+          <button id="showMen" class="active">Men's Rankings</button>
+          <button id="showWomen">Women's Rankings</button>
+        </section>
+        
+        <section>
+          <player-table id="menTable" src="/api/players/men"></player-table>
+          <player-table id="womenTable" src="/api/players/women" style="display: none;"></player-table>
+        </section>    
+      </main>
+      
+
+      <script type="module" src="/scripts/darkmode.js"></script>
+      <script type="module" src="/scripts/setheaderheight.js"></script>
+
+      <script type="module">
+        const menBtn = document.getElementById("showMen");
+        const womenBtn = document.getElementById("showWomen");
+        const menTable = document.getElementById("menTable");
+        const womenTable = document.getElementById("womenTable");
+      
+        menBtn.addEventListener("click", () => {
+          menTable.style.display = "block";
+          womenTable.style.display = "none";
+          menBtn.classList.add("active");
+          womenBtn.classList.remove("active");
+        });
+      
+        womenBtn.addEventListener("click", () => {
+          menTable.style.display = "none";
+          womenTable.style.display = "block";
+          womenBtn.classList.add("active");
+          menBtn.classList.remove("active");
+        });
+      </script>
+      
+    </mu-auth> 
+    </body>
 </html>

@@ -7,15 +7,18 @@
     color: #1e2b4e;
     cursor: pointer;
     border-radius: 6px;
+    font-family: "Bebas Neue", sans-serif;
+    font-size: larger;
 }
   
 .filter-bar button.active {
     background: #1e2b4e;
     color: white;
 }
+
 .filter-bar {
     display: flex;
     margin-bottom: 16px;
     justify-content: center;
-    gap: 12px; 
+    gap: 12px;
 }

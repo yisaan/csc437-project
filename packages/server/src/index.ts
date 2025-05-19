@@ -2,6 +2,8 @@ import express, { Request, Response } from "express";
 import { connect } from "./services/mongo";
 import Players from "./services/player-svc";
 import players from "./routes/players";
+import auth, { authenticateUser } from "./routes/auth";
+
 
 connect("Pickleball");
 
@@ -13,13 +15,15 @@ app.use(express.static(staticDir));
 
 app.use(express.json());
 
-app.use("/api/players", players);
+//app.use("/api/players", authenticateUser, players);
+
+app.use("/auth", auth);
 
 app.get("/hello", (req: Request, res: Response) => {
     res.send("Hello, World");
 });
 
-app.get("/players/:gender", (req: Request, res: Response) => {
+app.get("/api/players/:gender", (req: Request, res: Response) => {
     const { gender } = req.params;
   
     if (gender !== "men" && gender !== "women") {
@@ -56,7 +60,7 @@ app.get("/players", (req: Request, res: Response) => {
         .send(JSON.stringify(data));
     });
 });
-  
+
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);

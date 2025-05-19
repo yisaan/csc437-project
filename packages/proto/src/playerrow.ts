@@ -26,15 +26,14 @@ export class PlayerRowElement extends LitElement {
       
           td {
             padding: 14px 20px;
-            font-size: 15px;
+            font-size: large;
             border-bottom: 1px solid #eee;
             vertical-align: middle;
           }
       
           td.rank {
             font-weight: bold;
-            color: #007bff; /* strong blue */
-            font-size: 16px;
+            color: #007bff;
             text-align: left;
           }
       
