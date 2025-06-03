@@ -8,7 +8,8 @@
     "start": "npm run build && npm run start:node",
     "start:node": "node dist/index.js",
     "start:proto": "cross-env STATIC=../proto/dist npm run start",
-    "check": "tsc --noEmit"
+    "check": "tsc --noEmit",
+    "start:app": "cross-env STATIC=../app/dist npm run start"
   },
   "author": "",
   "license": "ISC",

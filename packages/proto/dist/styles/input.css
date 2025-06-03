@@ -1,0 +1,16 @@
+input {
+    width: 100%;
+    padding: 0.5rem 0;
+    box-sizing: border-box;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    font-size: 1rem;
+    outline: none;
+    width: 100%;
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 8px;
+}
+input::placeholder {
+    color: #ccc;
+    font-family: 'Poppins', sans-serif;
+}

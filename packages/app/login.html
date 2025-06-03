@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+
+    <link rel="stylesheet" href="/styles/input.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+  <script type="module">
+    import { define, Auth } from "@calpoly/mustang";
+    import { LoginFormElement } from "/src/components/login-form.ts";
+
+    define({
+      "mu-auth": Auth.Provider,
+      "login-form": LoginFormElement
+    });
+  </script>
+</head>
+<body class="page" style="background-color: rgba(255, 227, 149, 1)">
+<mu-auth>
+      <main 
+        class="card" 
+        style="
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        min-height: 60vh;
+        width: 90%;
+        max-width: 400px;
+        padding: 2rem;
+        "
+       >
+        <login-form api="/auth/login">
+          <label>
+            <input name="username" autocomplete="off" placeholder="Username" />
+          </label>
+          <label>
+            <input type="password" name="password" placeholder="Password"/>
+          </label>
+        </login-form>
+      </main>
+</mu-auth>
+</body>
+</html> 

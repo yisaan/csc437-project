@@ -11,66 +11,21 @@
       import { define, Auth } from "@calpoly/mustang";
       import { PlayerTableElement } from "/src/playertable.ts";
       import { PlayerRowElement } from "/src/playerrow.ts";
+      import { AppHeader } from "/src/header.ts";
+
     
       define({
         "player-table": PlayerTableElement,
         "mu-auth": Auth.Provider,
-        "player-ranking": PlayerRowElement
+        "player-ranking": PlayerRowElement,
+        "app-header": AppHeader
       });
     </script>
 
   </head>
     <body>
       <mu-auth provides="blazing:auth">
-      <header>
-        <nav>
-          <ul>
-            <li>
-              <label id="darkmode-toggle">
-                <input type="checkbox" autocomplete="off" hidden />
-                <svg class="icon" id="theme-icon">
-                  <use xlink:href="/icons/organization.svg#icon-darkmode"></use>
-                </svg>
-              </label>          
-            </li>
-            <li>
-              <a href="unity.html">
-                <svg class="icon">
-                  <use xlink:href="/icons/organization.svg#icon-unity"></use>
-                </svg>
-              </a>
-            </li>
-            <li>
-              <a href="calendar.html">
-                <svg class="icon">
-                  <use xlink:href="/icons/organization.svg#icon-calender"></use>
-                </svg>
-              </a>
-            </li>
-            <li>
-              <a href="index.html">
-                <svg class="icon">
-                  <use xlink:href="/icons/organization.svg#icon-group"></use>
-                </svg>
-              </a>
-            </li>
-            <li>
-              <a href="chat.html">
-                <svg class="icon">
-                  <use xlink:href="/icons/organization.svg#icon-chat"></use>
-                </svg>
-              </a>
-            </li>
-            <li>
-              <a href="profile.html">
-                <svg class="icon">
-                  <use xlink:href="/icons/organization.svg#icon-account"></use>
-                </svg>
-              </a>
-            </li>
-          </ul>
-        </nav>
-      </header>
+      <app-header></app-header>
 
       <main>
         <section class="filter-bar">

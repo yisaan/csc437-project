@@ -40,16 +40,18 @@ export class PlayerRowElement extends LitElement {
           td:nth-child(2) {
             font-weight: 600;
             text-align: left;
+            color: rgb(60, 60, 60);
           }
       
           td.year {
-            color: #555;
+            color: rgb(60, 60, 60);
             text-align: right;
           }
       
           td.points {
             font-weight: 700;
             text-align: right;
+            color: rgb(60, 60, 60);
           }
       
           :host(:hover) {

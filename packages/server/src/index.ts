@@ -3,6 +3,8 @@ import { connect } from "./services/mongo";
 import Players from "./services/player-svc";
 import players from "./routes/players";
 import auth, { authenticateUser } from "./routes/auth";
+import fs from "node:fs/promises";
+import path from "path";
 
 
 connect("Pickleball");
@@ -19,11 +21,7 @@ app.use(express.json());
 
 app.use("/auth", auth);
 
-app.get("/hello", (req: Request, res: Response) => {
-    res.send("Hello, World");
-});
-
-app.get("/api/players/:gender", (req: Request, res: Response) => {
+app.get("/api/players/:gender", authenticateUser, (req: Request, res: Response) => {
     const { gender } = req.params;
   
     if (gender !== "men" && gender !== "women") {
@@ -39,7 +37,7 @@ app.get("/api/players/:gender", (req: Request, res: Response) => {
   });
   
 
-app.get("/player/:name", (req: Request, res: Response) => {
+app.get("/api/player/:name", authenticateUser, (req: Request, res: Response) => {
     const { name } = req.params;
   
     Players.get(name).then((data) => {
@@ -53,7 +51,7 @@ app.get("/player/:name", (req: Request, res: Response) => {
     });
   });
 
-app.get("/players", (req: Request, res: Response) => {
+app.get("/api/players", authenticateUser, (req: Request, res: Response) => {
     Players.index().then((data) => {
         res
         .set("Content-Type", "application/json")
@@ -61,6 +59,12 @@ app.get("/players", (req: Request, res: Response) => {
     });
 });
 
+app.use("/app", (req: Request, res: Response) => {
+  const indexHtml = path.resolve(staticDir, "index.html");
+  fs.readFile(indexHtml, { encoding: "utf8" }).then((html) =>
+    res.send(html)
+  );
+});
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
