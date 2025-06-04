@@ -3,29 +3,16 @@ import { property, state } from 'lit/decorators.js';
 import reset from '../styles/reset.css.ts';
 import './playerrow.ts'; 
 import { Auth, Observer } from "@calpoly/mustang";
+import { Player } from "server/models";
 
-interface Player {
-  name:   string;
-  rank:   number;
-  year:   string;
-  points: number;
-}
 
 export class PlayerTableElement extends LitElement {
-  @property({ type: String }) src = '';
+  @property({ type: Array }) players: Player[] = [];
 
-  @state() private players: Player[] = [];
 
   _authObserver = new Observer<Auth.Model>(this, "app:auth");
   _user?: Auth.User;
 
-  connectedCallback() {
-    super.connectedCallback();
-    this._authObserver.observe((auth: Auth.Model) => {
-      this._user = auth.user;
-      if (this.src) this.hydrate(this.src);
-    });
-  }
 
   get authorization() {
     if ( this._user?.authenticated ) 
@@ -80,16 +67,6 @@ export class PlayerTableElement extends LitElement {
       }
     `
   ];
-
-  private async hydrate(src: string) {
-    try {
-      const res = await fetch(src, { headers: this.authorization });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      this.players = await res.json();
-    } catch (e) {
-      console.error('Failed to load player data:', e);
-    }
-  }
 
   render() {
     return html`
