@@ -2,6 +2,7 @@
 import { Auth, Update } from "@calpoly/mustang";
 import type { Msg } from "./messages";
 import type { Model } from "./model";
+import { Player } from "server/models";
 
 /**
  * The update function receives:
@@ -82,6 +83,132 @@ export default function update(
       }));
       break;
     }
+
+    // player/save
+    case "player/save": {
+        const {
+          name,
+          points,
+          year, // this might be undefined if user left the “year” input blank
+          onSuccess,
+          onFailure,
+        } = payload as {
+          name: string;
+          points: number;
+          year?: string;
+          onSuccess?: () => void;
+          onFailure?: (err: Error) => void;
+        };
+  
+        // Build a “updates” object that only includes fields actually passed in:
+        const updates: Partial<{ points: number; year: string }> = { points };
+        if (typeof year === "string" && year.trim() !== "") {
+          updates.year = year.trim();
+        }
+  
+        fetch(`/api/players/${encodeURIComponent(name)}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            ...Auth.headers(user),
+          },
+          body: JSON.stringify(updates),
+        })
+          .then((res) => {
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            return res.json();
+          })
+          .then((updatedPlayer: Player) => {
+            // Re‐rank locally (though GET /api/players will do it too next time):
+            apply((model) => {
+              const oldList = model.playersList ?? [];
+              const patchedList = oldList.map((p) =>
+                p.name === name
+                  ? { ...p, points: updatedPlayer.points, year: updatedPlayer.year }
+                  : p
+              );
+              // Resort by points descending
+              patchedList.sort((a, b) => b.points - a.points);
+              // Re‐assign ranks
+              const reRanked: Player[] = patchedList.map((p, i) => ({
+                ...p,
+                rank: i + 1,
+              }));
+  
+              return {
+                ...model,
+                playersList: reRanked,
+                selectedPlayer: reRanked.find((p) => p.name === name),
+              };
+            });
+  
+            if (onSuccess) onSuccess();
+          })
+          .catch((err: Error) => {
+            console.error("Failed to save player:", err);
+            if (onFailure) onFailure(err);
+          });
+        break;
+      }
+
+      case "player/create": {
+        const {
+          name,
+          year,
+          gender,
+          onSuccess,
+          onFailure,
+        } = payload as {
+          name: string;
+          year: string;
+          gender: "men" | "women";
+          onSuccess?: () => void;
+          onFailure?: (err: Error) => void;
+        };
+  
+        fetch(`/api/players`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            ...Auth.headers(user),
+          },
+          body: JSON.stringify({ name, year, gender }),
+        })
+          .then((res) => {
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            return res.json();
+          })
+          .then((newPlayer: Player) => {
+            // After we create, immediately reload the entire list so it arrives sorted+ranked
+            fetch(`/api/players/${gender}`, {
+              headers: Auth.headers(user),
+            })
+              .then((r) => {
+                if (!r.ok) throw new Error(`HTTP ${r.status}`);
+                return r.json();
+              })
+              .then((playersList: Player[]) => {
+                apply((model) => ({
+                  ...model,
+                  playersList,
+                }));
+                if (onSuccess) onSuccess();
+              })
+              .catch((err: Error) => {
+                console.error("Error after create, reloading list:", err);
+                if (onFailure) onFailure(err);
+              });
+          })
+          .catch((err: Error) => {
+            console.error("Failed to create player:", err);
+            if (onFailure) onFailure(err);
+          });
+        break;
+      }
+      
+      
+      
+      
 
     // ───────────────────────────────────────────────────────────────
     // 3) AUTHENTICATION (login/logout)

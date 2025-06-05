@@ -34,15 +34,38 @@ const staticDir = process.env.STATIC || "public";
 app.use(import_express.default.static(staticDir));
 app.use(import_express.default.json());
 app.use("/auth", import_auth.default);
-app.get("/api/players/:gender", import_auth.authenticateUser, (req, res) => {
+app.put("/api/players/:name", import_auth.authenticateUser, async (req, res) => {
+  const { name } = req.params;
+  const updates = req.body;
+  try {
+    const updated = await import_player_svc.default.update(name, updates);
+    if (!updated) {
+      res.status(404).send(`No player named "${name}"`);
+      return;
+    }
+    res.status(200).json(updated);
+  } catch (err) {
+    console.error("Error updating player:", err);
+    res.status(500).send("Server error");
+  }
+});
+app.get("/api/players/:gender", import_auth.authenticateUser, async (req, res) => {
   const { gender } = req.params;
   if (gender !== "men" && gender !== "women") {
     res.status(400).send("Invalid gender");
     return;
   }
-  import_player_svc.default.indexByGender(gender).then((data) => {
-    res.set("Content-Type", "application/json").send(JSON.stringify(data));
-  });
+  try {
+    const data = await import_player_svc.default.indexByGender(gender);
+    data.sort((a, b) => b.points - a.points);
+    data.forEach((player, idx) => {
+      player.rank = idx + 1;
+    });
+    res.set("Content-Type", "application/json").json(data);
+  } catch (err) {
+    console.error("Error loading players:", err);
+    res.status(500).send("Server error");
+  }
 });
 app.get("/api/player/:name", import_auth.authenticateUser, (req, res) => {
   const { name } = req.params;
@@ -59,6 +82,37 @@ app.get("/api/players", import_auth.authenticateUser, (req, res) => {
     res.set("Content-Type", "application/json").send(JSON.stringify(data));
   });
 });
+app.post(
+  "/api/players",
+  import_auth.authenticateUser,
+  // Only logged‐in users may create
+  async (req, res) => {
+    const { name, year, gender } = req.body;
+    if (!name || !year || gender !== "men" && gender !== "women") {
+      res.status(400).send("Missing or invalid name/year/gender");
+      return;
+    }
+    try {
+      const newPlayer = await import_player_svc.default.create({
+        rank: 0,
+        name,
+        year,
+        gender,
+        points: 0
+        // If your Mongoose schema has a “rank” field, you can leave it out or set it to null.
+        // rank: null
+      });
+      if (!newPlayer) {
+        res.status(500).send("Failed to create player");
+        return;
+      }
+      res.status(201).json(newPlayer);
+    } catch (err) {
+      console.error("Error creating player:", err);
+      res.status(500).send("Server error");
+    }
+  }
+);
 app.use("/app", (req, res) => {
   const indexHtml = import_path.default.resolve(staticDir, "index.html");
   import_promises.default.readFile(indexHtml, { encoding: "utf8" }).then(

@@ -9,7 +9,17 @@ export type Msg =
   // ───────────── Player selection ─────────────
   | ["player/select",   { name: string }]
   | ["player/clear",    {}]
-
+  | [
+    "player/save",
+    {
+      name: string;
+      points: number;
+      year?: string;
+      onSuccess?: () => void;
+      onFailure?: (err: Error) => void;
+    }
+  ]
+  | ["player/create", { name: string; year: string; gender: "men" | "women"; onSuccess?: () => void; onFailure?: (err: Error) => void }]
   // ─────────────── Auth messages ───────────────
   | ["auth/login",      { username: string; password: string }]
   | ["auth/logout",     {}]

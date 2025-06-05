@@ -12,6 +12,32 @@ const PlayerSchema = new Schema<Player>(
   { collection: "players", versionKey: false }
 );
 
+const Players = {
+  // Update by “name” (unique on your collection?), set only the passed fields
+  update: async (name: string, updates: Partial<{ points: number; year: string }>) => {
+    return await PlayerModel.findOneAndUpdate(
+      { name },
+      { $set: updates },
+      { new: true } // return the updated document
+    ).exec();
+  },
+  // Create new
+  create: async (playerData: {
+    name: string;
+    year: string;
+    gender: "men" | "women";
+    points: number;
+  }) => {
+    const p = new PlayerModel(playerData);
+    return await p.save();
+  },
+  // List by gender
+  indexByGender: async (gender: "men" | "women") => {
+    return await PlayerModel.find({ gender }).exec();
+  },
+  // …etc…
+};
+
 const PlayerModel = model<Player>(
     "Player", 
     PlayerSchema

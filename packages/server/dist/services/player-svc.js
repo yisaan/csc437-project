@@ -32,6 +32,27 @@ const PlayerSchema = new import_mongoose.Schema(
   },
   { collection: "players", versionKey: false }
 );
+const Players = {
+  // Update by “name” (unique on your collection?), set only the passed fields
+  update: async (name, updates) => {
+    return await PlayerModel.findOneAndUpdate(
+      { name },
+      { $set: updates },
+      { new: true }
+      // return the updated document
+    ).exec();
+  },
+  // Create new
+  create: async (playerData) => {
+    const p = new PlayerModel(playerData);
+    return await p.save();
+  },
+  // List by gender
+  indexByGender: async (gender) => {
+    return await PlayerModel.find({ gender }).exec();
+  }
+  // …etc…
+};
 const PlayerModel = (0, import_mongoose.model)(
   "Player",
   PlayerSchema

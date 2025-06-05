@@ -63,7 +63,7 @@ export class HomeView extends View<Model, Msg> {
     override render() {
 
         const list = this.model.playersList ?? [];
-
+        console.log("home-view render sees list:", list);
         return html`
         <div class="content">
             <section class="filter-bar">

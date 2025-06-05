@@ -62,7 +62,7 @@ export class AppHeader extends LitElement {
                 </svg>
               </label>
             </li>
-            <li><a href="log.html"><svg class="icon"><use xlink:href="/icons/organization.svg#icon-log"></use></svg></a></li>
+            <li><a href="/app/edit"><svg class="icon"><use xlink:href="/icons/organization.svg#icon-log"></use></svg></a></li>
             <li><a href="calendar.html"><svg class="icon"><use xlink:href="/icons/organization.svg#icon-calender"></use></svg></a></li>
             <li><a href="notifications.html"><svg class="icon"><use xlink:href="/icons/organization.svg#icon-notifications"></use></svg></a></li>
             <div class="auth-control">

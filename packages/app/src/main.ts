@@ -15,12 +15,18 @@ import { Model, init } from "./model";
 import update from "./update";
 
 import "./views/home-view";
+import "./views/player-edit-view";
 
 const routes: Switch.Route[] = [
     {
         auth: "protected",
         path: "/app",
         view: () => html`<home-view></home-view>`
+    },
+    {
+        auth: "protected",
+        path: "/app/edit",
+        view: () => html`<player-edit-view></player-edit-view>`
     },
     {
         path: "/",
