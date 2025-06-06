@@ -63,6 +63,7 @@ export class LoginFormElement extends LitElement {
       })
       .then((json: object) => {
           const { token } = json as { token: string };
+          localStorage.setItem("token", token);
           const customEvent = new CustomEvent(
           'auth:message', {
           bubbles: true,

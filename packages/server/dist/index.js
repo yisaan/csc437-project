@@ -27,6 +27,7 @@ var import_player_svc = __toESM(require("./services/player-svc"));
 var import_auth = __toESM(require("./routes/auth"));
 var import_promises = __toESM(require("node:fs/promises"));
 var import_path = __toESM(require("path"));
+var import_announcements = __toESM(require("./routes/announcements"));
 (0, import_mongo.connect)("Pickleball");
 const app = (0, import_express.default)();
 const port = process.env.PORT || 3e3;
@@ -34,6 +35,7 @@ const staticDir = process.env.STATIC || "public";
 app.use(import_express.default.static(staticDir));
 app.use(import_express.default.json());
 app.use("/auth", import_auth.default);
+app.use("/api/announcements", import_announcements.default);
 app.put("/api/players/:name", import_auth.authenticateUser, async (req, res) => {
   const { name } = req.params;
   const updates = req.body;

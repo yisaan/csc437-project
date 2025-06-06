@@ -64,7 +64,7 @@ export class AppHeader extends LitElement {
             </li>
             <li><a href="/app/edit"><svg class="icon"><use xlink:href="/icons/organization.svg#icon-log"></use></svg></a></li>
             <li><a href="calendar.html"><svg class="icon"><use xlink:href="/icons/organization.svg#icon-calender"></use></svg></a></li>
-            <li><a href="notifications.html"><svg class="icon"><use xlink:href="/icons/organization.svg#icon-notifications"></use></svg></a></li>
+            <li><a href="/app/announcements"><svg class="icon"><use xlink:href="/icons/organization.svg#icon-notifications"></use></svg></a></li>
             <div class="auth-control">
             ${this._authenticated
                 ? html`<button @click=${this._onSignOut}>Sign Out (${this._username})</button>`

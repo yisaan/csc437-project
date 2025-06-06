@@ -5,6 +5,10 @@ import players from "./routes/players";
 import auth, { authenticateUser } from "./routes/auth";
 import fs from "node:fs/promises";
 import path from "path";
+import announcementsRouter from "./routes/announcements";
+import dotenv from "dotenv";
+dotenv.config();
+
 
 
 connect("Pickleball");
@@ -19,7 +23,8 @@ app.use(express.json());
 
 //app.use("/api/players", authenticateUser, players);
 
-app.use("/api", auth);
+app.use("/auth", auth);
+app.use("/api/announcements", announcementsRouter);
 
 app.put("/api/players/:name", authenticateUser, async (req: Request, res: Response) => {
   const { name } = req.params;

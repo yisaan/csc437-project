@@ -11,16 +11,6 @@ var __copyProps = (to, from, except, desc) => {
   }
   return to;
 };
-var __reExport = (target, mod, secondTarget) => (__copyProps(target, mod, "default"), secondTarget && __copyProps(secondTarget, mod, "default"));
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
-var models_exports = {};
-module.exports = __toCommonJS(models_exports);
-__reExport(models_exports, require("./credential"), module.exports);
-__reExport(models_exports, require("./player"), module.exports);
-__reExport(models_exports, require("./announcement"), module.exports);
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
-  ...require("./credential"),
-  ...require("./player"),
-  ...require("./announcement")
-});
+var announcement_exports = {};
+module.exports = __toCommonJS(announcement_exports);
