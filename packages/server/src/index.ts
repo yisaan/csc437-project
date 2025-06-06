@@ -19,7 +19,7 @@ app.use(express.json());
 
 //app.use("/api/players", authenticateUser, players);
 
-app.use("/auth", auth);
+app.use("/api", auth);
 
 app.put("/api/players/:name", authenticateUser, async (req: Request, res: Response) => {
   const { name } = req.params;
